@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>JD 3D Engine</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="style/style.css" rel="stylesheet" type="text/css" />
+		<script src="js/javascript.js"></script>
+	</head>
+	
+	<body onLoad="runAll()">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<h1>JavaScript 3D Engine</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="centered">
+						<div id ="canvases">
+							<canvas id="renderCanvas" width="750" height="750"></canvas>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>User Changable Factors to go here</h3>
+						<button class="btn btn-primary" onclick="toggleSmoke();">Change Smoke Color!</button>
+						<br />
+						<h3>Slider</h3>
+						<br / >
+						<h3 id="slider">14</h3>
+						<form oninput="">
+							<input name="smokeSlider" id="smokeSlider" type="range" min="0" max="14" step="1" value="14" />
+							<output name="x" for="smokeSlider"></output>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<h4>Author: Karl Diab</h4>
+						<p>A simple engine that builds 3D objects and displays them from a variable vantage point.
+							Built entirely in JavaScript with no additional libraries.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+		
+		
