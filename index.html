@@ -20,21 +20,31 @@
 				<div class="col-sm-12">
 					<div class="centered">
 						<div id ="canvases">
-							<canvas id="renderCanvas" width="750" height="750"></canvas>
+							<canvas id="renderCanvas" width="1000" height="1000"></canvas>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
-						<h3>User Changable Factors to go here</h3>
+						<!--<h3>User Changable Factors to go here</h3>
 						<button class="btn btn-primary" onclick="toggleSmoke();">Change Smoke Color!</button>
 						<br />
 						<h3>Slider</h3>
-						<br / >
-						<h3 id="slider">14</h3>
-						<form oninput="">
-							<input name="smokeSlider" id="smokeSlider" type="range" min="0" max="14" step="1" value="14" />
-							<output name="x" for="smokeSlider"></output>
+						<br / >-->
+						<h3 id="xSliderText">X Vantage: </h3><br />
+						<form oninput="setXVantage(parseInt(xSlider.value))">
+							<input name="xSlider" id="xSlider" type="range" min="-500" max="500" step="25" value="0" />
+							<output name="x" for="xSlider"></output>
+						</form>
+						<h3 id="ySliderText">Y Vantage: </h3><br />
+						<form oninput="setYVantage(parseInt(ySlider.value))">
+							<input name="ySlider" id="ySlider" type="range" min="-500" max="500" step="25" value="0" />
+							<output name="x" for="ySlider"></output>
+						</form>
+						<h3 id="zSliderText">Z Vantage: </h3><br />
+						<form oninput="setZVantage(parseInt(zSlider.value))">
+							<input name="zSlider" id="zSlider" type="range" min="-500" max="500" step="25" value="500" />
+							<output name="x" for="zSlider"></output>
 						</form>
 					</div>
 				</div>
