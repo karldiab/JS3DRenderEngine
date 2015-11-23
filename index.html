@@ -9,7 +9,7 @@
 		<script src="js/javascript.js"></script>
 	</head>
 	
-	<body onLoad="runAll()">
+	<body onLoad="runAll(true)">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
@@ -20,12 +20,14 @@
 				<div class="col-sm-12">
 					<div class="centered">
 						<div id ="canvases">
-							<canvas id="renderCanvas" width="1000" height="1000"></canvas>
+							<canvas id="renderCanvas" width="750" height="750"></canvas>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
+						<button class="btn btn-primary" onclick="toggleDebug();">Toggle Debug</button>
+						<br />
 						<!--<h3>User Changable Factors to go here</h3>
 						<button class="btn btn-primary" onclick="toggleSmoke();">Change Smoke Color!</button>
 						<br />
