@@ -50,6 +50,12 @@ function setHRotation(hValue) {
 	rotatedPoints = rotateObject(hRotation,vRotation);
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
 }
+function setVRotation(vValue) {
+	vRotation = vValue;
+	document.getElementById("vRotationText").innerHTML = "Verticle Rotation: " + vRotation;
+	rotatedPoints = rotateObject(hRotation,vRotation);
+	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
+}
 	
 // Function to draw sky as backdrop
 function drawFrame(vantageX,vantageY,vantageZ,eyeDistance) {
@@ -66,11 +72,6 @@ function drawFrame(vantageX,vantageY,vantageZ,eyeDistance) {
 	myCanvas.fillStyle= "rgb(0,0,0)";
 	myCanvas.fill();
 	myCanvas.fillStyle= "white";
-	/*myCanvas.fillText("TOP X: " + (Math.sqrt(Math.pow(Math.abs(vantageZ),2)+Math.pow(points[5][0],2))),100,100);
-	myCanvas.fillText("BOTTOM X: " + (Math.sqrt(Math.pow((Math.abs(Math.abs(vantageZ))+points[5][2]),2)+Math.pow(points[5][0],2))),100,150);
-		myCanvas.fillText("TOP Y: " + (Math.sqrt(Math.pow(Math.abs(vantageZ),2)+Math.pow(points[5][1],2))),100,200);
-	myCanvas.fillText("BOTTOM Y: " + (Math.sqrt(Math.pow((Math.abs(Math.abs(vantageZ))+points[5][2]),2)+Math.pow(points[5][1],2))),100,250);
-	myCanvas.fillText(Math.abs(vantageZ)+points[5][2],100,300);*/
 	var rasterizedPts = new Array();
 	for (var i=0;i<rotatedPoints.length;i++) {
 		//var distance = Math.sqrt(Math.pow(vantageX-rotatedPoints[i][0],2)+Math.pow(vantageY-rotatedPoints[i][1],2)+Math.pow(vantageZ-rotatedPoints[i][2],2))
@@ -79,8 +80,8 @@ function drawFrame(vantageX,vantageY,vantageZ,eyeDistance) {
 		rasterizedPts[i] = [x+width,y+height];
 		//myCanvas.fillRect(x+width,y+height,3,3);
 		if (debugFlag == true) {
-			//myCanvas.fillText(rotatedPoints[i] + " X: " + x + " Y: " + y,x+10+width,y+height+(i*5));
-			myCanvas.fillText(i,x+10+width,y+height);
+			myCanvas.fillText(rotatedPoints[i] + " X: " + x + " Y: " + y,x+10+width,y+height+(i*5));
+			//myCanvas.fillText(i,x+10+width,y+height);
 		}
 		
 	}
@@ -146,17 +147,16 @@ function renderObject(numOfPoints, size) {
 function rotateObject(hRotation,vRotation) {
 	var hTranslated = (hRotation*Math.PI)/180;
 	var vTranslated = (vRotation*Math.PI)/180;
-	var xRotFactor = -(225*Math.PI)/180;
-	var yRotFactor = -(135*Math.PI)/180;
+	var cosH = Math.cos(hTranslated);
+	var sinH = Math.sin(hTranslated);
+	var cosV = Math.cos(vTranslated);
+	var sinV = Math.sin(vTranslated);
 	var rotated = new Array();
+	
 	for (var i = 0;i<points.length;i++) {
-		
-		rotated[i] = [points[i][0]*(Math.cos(hTranslated+xRotFactor)/Math.cos(xRotFactor)),points[i][1]*(Math.cos(hTranslated+yRotFactor)/Math.cos(yRotFactor)),points[i][2],points[i][3],points[i][4],points[i][5]];
+		rotated[i] = [points[i][0]*cosH - points[i][1]*sinH,points[i][0]*sinH + points[i][1] * cosH,points[i][2],points[i][3],points[i][4],points[i][5]];
 		//console.log("i: " + i + " " + points[i][0] + " " + rotated[i][0]);
-		if (i%2 != 0) {
-			xRotFactor += Math.PI/2;
-			yRotFactor += Math.PI/2;
-		}
+		rotated[i] = [rotated[i][0],rotated[i][1]*cosV - rotated[i][2]*sinV,rotated[i][1]*sinV + rotated[i][2] * cosV,points[i][3],points[i][4],points[i][5]];
 	}
 	
 	return rotated;
