@@ -2,20 +2,20 @@ body {
 	text-align: center;
 }
 .centered {
-	height: 750px;
-	width: 750px;
+	height: 500px;
+	width: 500px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 }
 #canvases {
-	margin-left: -750px;
+	margin-left: -500px;
 }
 #renderCanvas {
 	position: absolute;
 	z-index: 0;
 }
-#smokeSlider {
-	width: 10%;
+input {
+	width: 5%;
 	margin: auto;
 }
