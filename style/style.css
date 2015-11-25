@@ -1,21 +1,6 @@
 body {
 	text-align: center;
 }
-.centered {
-	height: 750px;
-	width: 750px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-#canvases {
-	margin-left: -750px;
-}
-#renderCanvas {
-	position: absolute;
-	z-index: 0;
-}
-#smokeSlider {
-	width: 10%;
+input {
 	margin: auto;
 }

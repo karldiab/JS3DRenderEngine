@@ -17,29 +17,51 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-md-6">
 					<div class="centered">
 						<div id ="canvases">
-							<canvas id="renderCanvas" width="750" height="750"></canvas>
+							<canvas id="renderCanvas" width="500px" height="500px"></canvas>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<button class="btn btn-primary" onclick="toggleDebug();">Toggle Text</button>
-						<br />
-						<h3 id="zSliderText">Z Vantage: </h3><br />
-						<form oninput="setZVantage(parseInt(zSlider.value))">
-							<input name="zSlider" id="zSlider" type="range" min="-500" max="500" step="25" value="500" />
+					<div class="col-md-6" style="padding: 50px;">
+						<div class="row">
+						<div class="col-xs-4">
+						<h5 id="xSliderText">X Vantage: </h5><br />
+						<form oninput="setXVantage(parseInt(xSlider.value))">
+							<input style="width: 50%;" name="xSlider" id="xSlider" type="range" min="-500" max="500" step="25" value="0" />
 						</form>
-					</div>
-				</div>
+
+						</div>
+						<div class="col-xs-4">
+						<h5 id="ySliderText">Y Vantage: </h5><br />
+						<form oninput="setYVantage(parseInt(ySlider.value))">
+							<input style="width: 50%;" name="ySlider" id="ySlider" type="range" min="-500" max="500" step="25" value="0" />
+						</form>
+						</div>
+						<div class="col-xs-4">
+						<h5 id="zSliderText">Z Vantage: </h5><br />
+						<form oninput="setZVantage(parseInt(zSlider.value))">
+							<input style="width: 50%;" name="zSlider" id="zSlider" type="range" min="-400" max="500" step="25" value="400" />
+						</form>
+
+						</div>
+						</div>
+						<div class="row" style="padding: 25px;">
+						<div class="col-xs-12">
+						<button class="btn btn-primary pull-left" onclick="toggleDebug();">Toggle Text</button>
+						</div>
+						</div>
+					
 				<div class="row">
 					<div class="col-xs-12">
 						<h4>Author: Karl Diab</h4>
 						<p>A simple engine that builds 3D objects and displays them from a variable vantage point.
-							Built entirely in JavaScript with no additional libraries.
+							Built entirely in JavaScript with no additional libraries. The purpose of this project
+							was not to build an entirely new engine, but to better understand the mechanics of more
+							advanced graphics libraries.
 						</p>
+						</div>
 					</div>
 				</div>
 			</div>

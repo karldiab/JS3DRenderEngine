@@ -1,11 +1,11 @@
 
 var xVantage = 0;
 var yVantage = 0;
-var zVantage = 500;
+var zVantage = 400;
 var eyeDistance = 500;
 var debugFlag = true;
 var numOfVertices = 8;
-var objectSize = 200;
+var objectSize = 100;
 var hRotation = 0;
 var vRotation = 0;
 var canvasWidth = 0;
@@ -18,6 +18,9 @@ var rotatedPoints = points;
 /* driver function to initiate all necessary functions. */
 function runAll() {
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance);
+	document.getElementById("zSliderText").innerHTML = "Z Vantage: " + zVantage;
+	document.getElementById("ySliderText").innerHTML = "Y Vantage: " + yVantage;
+	document.getElementById("xSliderText").innerHTML = "X Vantage: " + xVantage;
 	mouseRotate();
 
 }
@@ -79,6 +82,7 @@ function setXVantage(xValue) {
 		xValue *= -0.98;
 	}
 	xVantage = xValue;
+	document.getElementById("xSliderText").innerHTML = "X Vantage: " + parseFloat(Math.round(xVantage).toFixed(5));
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
 }	
 function setYVantage(yValue) {
@@ -86,14 +90,12 @@ function setYVantage(yValue) {
 	yValue *= -0.98;
 	}
 	yVantage = yValue;
+	document.getElementById("ySliderText").innerHTML = "Y Vantage: " + parseFloat(Math.round(yVantage).toFixed(5));
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
 }	
 function setZVantage(zValue) {
-	if (Math.abs(zValue) > canvasWidth) {
-	zValue *= -0.98;
-	}
 	zVantage = zValue;
-	document.getElementById("zSliderText").innerHTML = "Z Vantage: " + zVantage;
+	document.getElementById("zSliderText").innerHTML = "Z Vantage: " + parseFloat(Math.round(zVantage).toFixed(5));
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance);
 }	
 function toggleDebug() {
@@ -163,7 +165,7 @@ function drawFrame(vantageX,vantageY,vantageZ,eyeDistance) {
 		//myCanvas.fillRect(x+width,y+height,3,3);
 		if (debugFlag == true) {
 			//myCanvas.fillText(rotatedPoints[i] + " X: " + x + " Y: " + y,x+10+width,y+height+(i*5));
-			myCanvas.font="20px Arial";
+			myCanvas.font="13px Arial";
 			myCanvas.fillText(i,x+10+canvasWidth,y+canvasHeight);
 			myCanvas.fillText("X Vantage: " + parseFloat(Math.round(xVantage).toFixed(5)) + " Y Vantage: " + 
 			parseFloat(Math.round(yVantage).toFixed(5)) + " Z Vantage: " + parseFloat(Math.round(zVantage).toFixed(5)),10,25);
