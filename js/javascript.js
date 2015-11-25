@@ -3,38 +3,33 @@ var xVantage = 0;
 var yVantage = 0;
 var zVantage = 500;
 var eyeDistance = 500;
-var debugFlag = false;
+var debugFlag = true;
 var numOfVertices = 8;
 var objectSize = 200;
 var hRotation = 0;
 var vRotation = 0;
-var canvasWidth;
-var canvasHeight;
-var d = new Date().getTime();
+var canvasWidth = 0;
+var canvasHeight = 0;
+var canvasX = 0;
+var canvasY = 0;
 //var n = d.getTime();
 var points = renderObject(numOfVertices, objectSize);
 var rotatedPoints = points;
 /* driver function to initiate all necessary functions. */
 function runAll() {
-	
-	document.getElementById("xSliderText").innerHTML = "X Vantage: " + xVantage;
-	document.getElementById("ySliderText").innerHTML = "Y Vantage: " + yVantage;
-	document.getElementById("zSliderText").innerHTML = "Z Vantage: " + zVantage;
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance);
-	
-	
+	mouseRotate();
+
 }
 //window.addEventListener('keydown',this.check,false);
 window.addEventListener('keyup', function(event) { Key.onKeyup(event); keyboardRxn(); }, false);
 window.addEventListener('keydown', function(event) { Key.onKeydown(event); keyboardRxn(); }, false);
 var Key = {
   _pressed: {},
-
   LEFT: 37,
   UP: 38,
   RIGHT: 39,
   DOWN: 40,
-  
   isDown: function(keyCode) {
     return this._pressed[keyCode];
   },
@@ -79,26 +74,11 @@ function keyboardRxn() {
 	}
 }
 
-
-/*function check(e) {
-	//var evt = e.type;
-    var code = e.keyCode;
-	//while (evt.length < 10) {
-    switch (code) {
-        case 37: setXVantage(xVantage-5); break; //Left key
-        case 38: setYVantage(yVantage-5); break; //Up key
-        case 39: setXVantage(xVantage+5); break; //Right key
-        case 40: setYVantage(yVantage+5); break; //Down key
-    //}
-	}
-}*/
-
 function setXVantage(xValue) {
 	if (Math.abs(xValue) > canvasWidth*2) {
 		xValue *= -0.98;
 	}
 	xVantage = xValue;
-	document.getElementById("xSliderText").innerHTML = "X Vantage: " + xValue;
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
 }	
 function setYVantage(yValue) {
@@ -106,7 +86,6 @@ function setYVantage(yValue) {
 	yValue *= -0.98;
 	}
 	yVantage = yValue;
-	document.getElementById("ySliderText").innerHTML = "Y Vantage: " + yVantage;
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
 }	
 function setZVantage(zValue) {
@@ -125,46 +104,35 @@ function toggleDebug() {
 	}
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance);
 }
-document.onmousemove = mouseRotate;
-var tempX = 0;
-var tempY = 0;
-function getMouseXY(e) {
-    tempX = e.pageX
-    tempY = e.pageY
-  // catch possible negative values in NS4
-  if (tempX < 0){tempX = 0}
-  if (tempY < 0){tempY = 0}  
-  // show the position values in the form named Show
-  // in the text fields named MouseX and MouseY
-  mouseRotate();
-  return true
-}
+var mouseX = 0;
+var mouseY = 0;
 function setHRotation(hValue) {
 	if (Math.abs(hValue) > 360) {
 	hValue = 0;
 	}
 	hRotation = hValue;
-	document.getElementById("hRotationText").innerHTML = "Horizontal Rotation: " + hRotation;
 	rotatedPoints = rotateObject(hRotation,vRotation);
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
 }
-function mouseRotate(e) {
-	var mouseX = e.clientX;
-    var mouseY = e.clientY;
-	if (mouseX > 500) {
-		hRotation += 5;
-	}
-	if (mouseY > 500) {
-		vRotation += 5;
-	}
-	setHRotation(hRotation)
+document.onmousemove = setMouseXY;
+function setMouseXY(e) {
+	mouseX = e.clientX;
+    mouseY = e.clientY;
+
+}
+function mouseRotate() {
+	setInterval(function() {
+		hRotation += (mouseX-(canvasX+canvasWidth))/100;
+		vRotation += (mouseY-(canvasY+canvasHeight))/100;
+	setVRotation(vRotation);
+	setHRotation(hRotation);
+	}, 50);
 }
 function setVRotation(vValue) {
 	if (Math.abs(vValue) > 360) {
 	vValue = 0;
 	}
 	vRotation = vValue;
-	document.getElementById("vRotationText").innerHTML = "Verticle Rotation: " + vRotation;
 	rotatedPoints = rotateObject(hRotation,vRotation);
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
 }
@@ -175,6 +143,8 @@ function drawFrame(vantageX,vantageY,vantageZ,eyeDistance) {
 	var myCanvas = canvas.getContext("2d");
 	canvasWidth = canvas.width/2;
 	canvasHeight = canvas.height/2;
+	canvasX = canvas.getBoundingClientRect().left;
+	canvasY = canvas.getBoundingClientRect().top;
 	myCanvas.beginPath();
 	myCanvas.moveTo(0,0);
 	myCanvas.lineTo(0,1000);
@@ -193,9 +163,16 @@ function drawFrame(vantageX,vantageY,vantageZ,eyeDistance) {
 		//myCanvas.fillRect(x+width,y+height,3,3);
 		if (debugFlag == true) {
 			//myCanvas.fillText(rotatedPoints[i] + " X: " + x + " Y: " + y,x+10+width,y+height+(i*5));
-			myCanvas.fillText(Key.isDown(Key.UP) + " " + new Date().getTime() + " " + i,x+10+canvasWidth,y+canvasHeight);
+			myCanvas.font="20px Arial";
+			myCanvas.fillText(i,x+10+canvasWidth,y+canvasHeight);
+			myCanvas.fillText("X Vantage: " + parseFloat(Math.round(xVantage).toFixed(5)) + " Y Vantage: " + 
+			parseFloat(Math.round(yVantage).toFixed(5)) + " Z Vantage: " + parseFloat(Math.round(zVantage).toFixed(5)),10,25);
+			myCanvas.fillText("Upwards Rotation: " + parseFloat(Math.round(hRotation).toFixed(5)) + " Sideways Rotation: "
+			+ parseFloat(Math.round(vRotation).toFixed(5)),10,55);
+			myCanvas.fillText("Use arrow keys to move perspective and mouse to rotate.",10,2*canvasHeight-10);
+			myCanvas.fillText("Made by Karl Diab in pure JavaScript",10,2*canvasHeight-30);
 		}
-		
+	//setTimeout(mouseRotate(), 100);
 	}
 
 	for (var i=0;i<rotatedPoints.length;i++) {
