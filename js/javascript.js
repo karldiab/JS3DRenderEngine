@@ -19,6 +19,8 @@ var rotatedPoints = points;
 function runAll() {
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance);
 	document.getElementById("zSliderText").innerHTML = "Z Vantage: " + zVantage;
+	document.getElementById("ySliderText").innerHTML = "Y Vantage: " + yVantage;
+	document.getElementById("xSliderText").innerHTML = "X Vantage: " + xVantage;
 	mouseRotate();
 
 }
@@ -80,6 +82,7 @@ function setXVantage(xValue) {
 		xValue *= -0.98;
 	}
 	xVantage = xValue;
+	document.getElementById("xSliderText").innerHTML = "X Vantage: " + parseFloat(Math.round(xVantage).toFixed(5));
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
 }	
 function setYVantage(yValue) {
@@ -87,11 +90,12 @@ function setYVantage(yValue) {
 	yValue *= -0.98;
 	}
 	yVantage = yValue;
+	document.getElementById("ySliderText").innerHTML = "Y Vantage: " + parseFloat(Math.round(yVantage).toFixed(5));
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance)
 }	
 function setZVantage(zValue) {
 	zVantage = zValue;
-	document.getElementById("zSliderText").innerHTML = "Z Vantage: " + zVantage;
+	document.getElementById("zSliderText").innerHTML = "Z Vantage: " + parseFloat(Math.round(zVantage).toFixed(5));
 	drawFrame(xVantage,yVantage,zVantage,eyeDistance);
 }	
 function toggleDebug() {
