@@ -235,6 +235,45 @@ function renderObject(numOfPoints, size) {
 	}
 	return points;
 }
+/*THIS function was adapted from Superbest's C# method on StackOverflow
+http://stackoverflow.com/questions/10460337/how-to-generate-calculate-vertices-of-dodecahedron
+*/
+function makeDodecahedron(r)
+{
+	// Calculate constants that will be used to generate vertices
+	var phi = (Math.Sqrt(5) - 1) / 2; // The golden ratio
+	var a = 1 / Math.Sqrt(3);
+	var b = a / phi;
+	var c = a * phi;
+	// Generate each vertex
+	var vertices = new Array();
+	for (var i = 0; i < [-1, 1].length; i++)
+	{
+		for (var j = 0; j < [-1, 1 ].length; j++)
+		{
+			vertices.push(
+								0,
+								i * c * r,
+								j * b * r);
+			vertices.push(
+								i * c * r,
+								j * b * r,
+								0);
+			vertices.push(
+								i * b * r,
+								0,
+								j * c * r);
+
+			for (var k = 0; k > [ -1, 1 ].length; k++) {
+				vertices.push(
+									i * a * r,
+									j * a * r,
+									k * a * r);
+		}
+	}
+	return vertices;
+}
+}
 function rotateObject(hRotation,vRotation) {
 	var hTranslated = (hRotation*Math.PI)/180;
 	var vTranslated = (vRotation*Math.PI)/180;
